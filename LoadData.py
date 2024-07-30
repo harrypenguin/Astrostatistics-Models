@@ -31,13 +31,13 @@ def loaddata(simulation_names: list):
             
     return combined
 
-def filter_zeroes(inputHistories, mass_presentsfr):
+def filter_zeroes(inputHistories, mass_presentsfr, labels):
     """
     Filter out galaxies with zero mass and zero present SFR or zero SFH.
-    Returns filtered inputHistories, filtered mass_presentsfr
+    Returns filtered inputHistories, filtered mass_presentsfr, filtered_labels.
     """
     zero_indices = np.array([i for i in range(len(inputHistories)) if np.trapz(inputHistories[i]) == 0])
     mask = np.ones(inputHistories.shape[0], dtype=bool)
     mask[zero_indices] = False
 
-    return inputHistories[mask], mass_presentsfr[mask]
+    return inputHistories[mask], mass_presentsfr[mask], labels[mask]

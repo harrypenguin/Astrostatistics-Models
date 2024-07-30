@@ -24,9 +24,9 @@ def loaddata(simulation_names: list):
         presentsfr = sfhs[:, -1]  # Accessing the last time step for redshift 0 sfr
         logmass = np.array(sim_data['logmass'].ravel())
         if sim_name in ['Simba', 'Mufasa']:
-            combined = combined + [[arr, [m, np.arcsinh(s)]] for arr, m, s in zip(sfhs, logmass, presentsfr) if m > 10]
+            combined = combined + [[arr, [m, np.arcsinh(s)], sim_name] for arr, m, s in zip(sfhs, logmass, presentsfr) if m > 10]
         else:
-            combined = combined + [[arr, [m, np.arcsinh(s)]] for arr, m, s in zip(sfhs, logmass, presentsfr) if m > 9]
+            combined = combined + [[arr, [m, np.arcsinh(s)], sim_name] for arr, m, s in zip(sfhs, logmass, presentsfr) if m > 9]
         # Setting a cut off for mass, categorized by simulation
             
     return combined

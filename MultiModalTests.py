@@ -146,6 +146,7 @@ for num_lat in range(2, 32, 2):
         return total_loss, loss_sfh, loss_sim_type, loss_mass_sfr
 
     AE = ConvAutoencoder().to(device)
+    print(AE)
     optimizer = optim.Adam(AE.parameters(), lr=0.01)
     scheduler = StepLR(optimizer, step_size=100, gamma=0.9)
     num_epochs = 200

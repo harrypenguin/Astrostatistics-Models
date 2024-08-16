@@ -113,6 +113,19 @@ def pred_actual_data_vis(pred_mass, pred_sfr, stellar_mass, star_formation_rate)
     plt.tight_layout()
     plt.show()
 
+    # Plotting predicted values and actual values in one SM vs SFR plot
+    fig, ax = plt.subplots(1, 1, figsize=(6, 6))
+    ax.scatter(stellar_mass, star_formation_rate, s=0.1, alpha=1, label='Actual', color='#001F4E')
+    ax.scatter(pred_mass, pred_sfr, s=0.1, alpha=1, label='Predicted', color='#AF0001')
+    ax.set_yscale('log')
+    ax.set_xlim(8.5, 12)
+    ax.set_ylim(1e-5, 10)
+    ax.set_xlabel('Log Stellar Mass ($M_\u2609$)')
+    ax.set_ylabel('arcsinh Star Formation Rate ($M_\u2609 Year^{-1}$)')
+    ax.set_title('Log Stellar Mass vs. arcsinh Star Formation Rate')
+    ax.legend()
+    plt.show()
+
 def pred_actual_data_eval(pred_mass, pred_sfr, stellar_mass, star_formation_rate):
     r_squared_mass = r2_score(stellar_mass, pred_mass)
     r_squared_sfr = r2_score(star_formation_rate, pred_sfr)

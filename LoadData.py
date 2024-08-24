@@ -33,7 +33,7 @@ def loaddata(simulation_names: list):
 
 def filter_zeroes(inputHistories, mass_presentsfr, labels):
     """
-    Filter out galaxies with zero mass and zero present SFR or zero SFH.
+    Filter out galaxies with zero SFH.
     Returns filtered inputHistories, filtered mass_presentsfr, filtered_labels.
     """
     zero_indices = np.array([i for i in range(len(inputHistories)) if np.trapz(inputHistories[i]) == 0])
@@ -41,3 +41,19 @@ def filter_zeroes(inputHistories, mass_presentsfr, labels):
     mask[zero_indices] = False
 
     return inputHistories[mask], mass_presentsfr[mask], labels[mask]
+
+def count_zeroes(inputHistories, mass_presentsfr, labels):
+    """
+    Count the number of galaxies with zero SFH by simulation.
+    """
+    # count by simulation
+    zero_indices = np.array([i for i in range(len(inputHistories)) if np.trapz(inputHistories[i]) == 0])
+    mask = np.ones(inputHistories.shape[0], dtype=bool)
+    mask[zero_indices] = False
+
+    # print out the number of galaxies with zero SFH for each type of simulation
+    print('Total number of galaxies:', len(inputHistories))
+    print('Number of galaxies with zero SFH in each simulation:')
+    for i, sim in enumerate(set(labels)):
+        print(sim, np.sum(np.array(labels) == sim) - np.sum(np.array(labels)[mask] == sim))
+    print('Total number of galaxies with zero SFH:', len(zero_indices))
